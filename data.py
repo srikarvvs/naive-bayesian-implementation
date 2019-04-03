@@ -57,6 +57,32 @@ play_cricket_body = [
 ]
 
 
-
-
 #made by venkat 
+
+
+"""
+Dataset - 3
+"""
+buys_computer2_meta ={'age':"numeric",
+	'income':"high/medium/low",
+	'student':'yes/no',
+	'credit_rating':'fair/excellent'
+}
+buys_computer2_head = ["age","income","student","credit_rating"]
+buys_computer2_body = [
+	[20,"high","no","fair","no"],
+	[22,"high","no","excellent","no"],
+	[28,"high","no","fair","yes"],
+	[45,"medium","no","fair","yes"],
+	[43,"low","yes","fair","yes"],
+	[54,"low","yes","excellent","no"],
+	[32,"low","yes","excellent","yes"],
+	[25,"medium","no","fair","no"],
+	[24,"low","yes","fair","yes"],
+	[52,"medium","yes","fair","yes"],
+	[22,"medium","yes","excellent","yes"],
+	[35,"medium","no","excellent","yes"],
+	[38,"high","yes","fair","yes"],
+	[56,"medium","no","excellent","no"]
+]
+
