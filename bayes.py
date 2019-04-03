@@ -1,3 +1,8 @@
+"""
+Author  :   Venkat
+Topic   :   Bayes Classifier
+"""
+
 from data import *
 
 #x = ["senior","medium","no","excellent"]

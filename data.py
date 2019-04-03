@@ -3,6 +3,26 @@ data should be loaded into following format
 either any one dataset should be loaded
 other datset should be in comments
 """
+def _dismissquotes(line_list):
+	return [i.strip('"') for i in line_list]
+def load_data(file_name,headless=False,with_quote=True,sep=","):
+	tuple_head,tuple_body = [],[]
+	try:
+		open_file = open(file_name)
+	except:
+		raise ValueError("No File Found")
+	else:
+		if not headless:
+			tuple_head += open_file.readline().strip().split(sep)
+			if with_quote:
+				tuple_head[:] = _dismissquotes(tuple_head)
+		if with_quote:
+			for line in open_file.readlines():
+				tuple_body += _dismissquotes(line.strip().split(sep))
+		else:
+			for line in open_file.readlines():
+				tuple_body += line.strip().split(sep)
+		return tuple_head,tuple_body
 
 """
 first dataset
