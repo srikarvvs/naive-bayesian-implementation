@@ -7,7 +7,11 @@ other datset should be in comments
 """
 first dataset
 """
-
+buys_computer_meta ={'age':"youth/middle aged/senior",
+	'income':"high/medium/low",
+	'student':'yes/no',
+	'credit_rating':'fair/excellent'
+}
 buys_computer_head = ["age","income","student","credit_rating"]
 buys_computer_body = [
 	["youth","high","no","fair","no"],
@@ -29,6 +33,11 @@ buys_computer_body = [
 """
 second dataset 
 """
+play_cricket_meta = {"outlook":"sunny/overcast/rainy",
+	"temp":"hot/mild/cool",
+	"humidty":"high/normal",
+	"windy":"false/true"
+}
 play_cricket_head = ["outlook","temp","humidty","windy"]
 play_cricket_body = [
 	["sunny","hot","high","false","no"],
