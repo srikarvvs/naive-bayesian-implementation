@@ -94,13 +94,13 @@ def main():
             for i in buys_computer_head:
                 temp = input("Enter %s(%s): "%(i,buys_computer_meta[i]))
                 x.append(temp)
-            print(by_bayes_theorem(data_set,x),",Buys computer")
+            print(by_bayes_theorem(data_set,x,buys_computer_head,buys_computer_meta),",Buys computer")
         elif ch == 2:
             data_set += play_cricket_body
             for i in play_cricket_head:
                 temp = input("Enter %s(%s): "%(i,play_cricket_meta[i]))
                 x.append(temp)
-            print(by_bayes_theorem(data_set,x),",Play golf")
+            print(by_bayes_theorem(data_set,x,play_cricket_head,play_cricket_meta),",Play golf")
         elif ch == 3:
             data_set += buys_computer2_body
             for i in buys_computer2_head:
