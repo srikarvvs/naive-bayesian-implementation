@@ -80,14 +80,49 @@ def by_bayes_theorem(data_set,x,head,meta):
     for i in prob:
         prob[i] = prob[i]*(float(clss[i])/len(data_set))
     max,maxItem = 0,""
+    print(prob)
     for i in prob:
         if prob[i] > max:
             maxItem = i
             max = prob[i]
     return maxItem
+def _dismissquotes(line_list):
+	return [i.strip('"') for i in line_list]
+def load_data(file_name,headless=False,with_quote=True,sep=","):
+	tuple_head,tuple_body = [],[]
+	try:
+		open_file = open(file_name)
+	except:
+		raise ValueError("No File Found")
+	else:
+		if not headless:
+			tuple_head += open_file.readline().strip().split(sep)
+			if with_quote:
+				tuple_head[:] = _dismissquotes(tuple_head)
+		if with_quote:
+			for line in open_file.readlines():
+				tuple_body += [_dismissquotes(line.strip().split(sep))]
+		else:
+			for line in open_file.readlines():
+				if line.strip() == "":	
+					continue	
+				tuple_body += [line.strip().split(sep)]
+		return tuple_head,tuple_body
+def load_data_with_meta(file_name,meta,headless=False,with_quote=True,sep=","):
+	tuple_head,tuple_body = load_data(file_name,headless,with_quote,sep)# load data 
+	for attrib in meta:
+		if meta[attrib] == "numeric":
+			index = tuple_head.index(attrib)
+			row = 0
+			while row!=len(tuple_body):
+				if '.' in tuple_body[row][index]:
+					tuple_body[row][index] = float(tuple_body[row][index])
+				else:
+					tuple_body[row][index] = int(tuple_body[row][index])
+				row += 1
+	return tuple_head,tuple_body
 def main():
-    data_set = []
-    x = [] 
+    x = []
     print("---data slecetion--\n1.buys computer\n2.play cricket\n3.buys computer(age as numeric)")
     try:
         ch = int(input("enter choice : "))#select dataset
@@ -95,26 +130,28 @@ def main():
         print("Something wrong with choice")
     else:
         if ch == 1:
-            data_set += buys_computer_body
-            for i in buys_computer_head:
+            _head, data_set = load_data(buys_computer_file,with_quote=True)  
+            for i in _head:
                 temp = input("Enter %s(%s): "%(i,buys_computer_meta[i]))
                 x.append(temp)
-            print(by_bayes_theorem(data_set,x,buys_computer_head,buys_computer_meta),",Buys computer")
+            print(by_bayes_theorem(data_set,x,_head,buys_computer_meta),",Buys computer")
         elif ch == 2:
-            data_set += play_cricket_body
-            for i in play_cricket_head:
+            _head,data_set = load_data(play_cricket_file,with_quote=True)
+            for i in _head:
                 temp = input("Enter %s(%s): "%(i,play_cricket_meta[i]))
                 x.append(temp)
-            print(by_bayes_theorem(data_set,x,play_cricket_head,play_cricket_meta),",Play golf")
+            print(by_bayes_theorem(data_set,x,_head,play_cricket_meta),",Play Cricket")
         elif ch == 3:
-            data_set += buys_computer2_body
-            for i in buys_computer2_head:
+            _head,data_set = load_data_with_meta(buys_computer2_file,meta=buys_computer2_meta)
+            for i in _head:
                 temp = input("Enter %s(%s): "%(i,buys_computer2_meta[i]))
                 x.append(temp)
             try:
                 x[0]=int(x[0])
-                print(by_bayes_theorem(data_set,x,buys_computer2_head,buys_computer2_meta),",Buys computer")
+                print(by_bayes_theorem(data_set,x,_head,buys_computer2_meta),",Buys computer")
             except ValueError:
                 print("Enter age value as number of years")
-            
-main()
+if __name__ == "__main__":
+    print("--needed (test1.csv,buys_computer),(test2.csv,play cricket),(test3.csv,buys computer2withnumeric)---")         
+    print("\tLook on the meta in 'data.py' file")
+    main()
